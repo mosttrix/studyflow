@@ -1,0 +1,137 @@
+html {
+    overscroll-behavior-y: none;
+}
+
+main {
+    background-image: url("images/bgreg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    min-height: 80vh;
+    padding: 30px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overscroll-behavior-y: none;
+    overflow-x: clip;
+    background-image: url("images/bg.png");
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #041e6a;
+    color : white;
+}
+
+#btm{
+    height: 50%;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+    margin-top: 20px;
+    margin-right: 10px;
+}
+
+#btm:hover {
+    background-color: #119b23;
+    box-shadow: 0 0 10px white,
+                0 0 25px #baffc2;
+    transform: translateY(-3px);
+}
+
+#btm:active {
+    transform: scale(0.95);
+}
+
+#regbtn{
+    background-color: aqua;
+}
+
+#regbtn:hover {
+    background-color: #119b23;
+    box-shadow: 0 0 10px white,
+                0 0 25px #baffc2;
+    transform: translateY(-3px);
+}
+
+#regbtn:active {
+    transform: scale(0.95);
+}
+
+.formular {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background-color: #041e6a;
+    padding: 20px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.formular label{
+    font-size: 25px;
+}
+
+.formular input{
+    width: 250px;
+    height: 35px;
+    font-size: 18px;
+    padding: 5px;
+}
+
+.formular button{
+    font-size: 30px;
+    background-color: #344E41;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+footer{
+    background-color: #041e6a;
+    color : white ;
+}
+
+
+#cpy{
+    text-align: center;
+    position:relative;
+    top:-15px;
+}
+
+#ctctxt{
+    position: relative;
+    top:40px;
+    left: 20px;
+}
+
+.contact {
+    position: relative;
+    top: -30px;
+    left: 450px;
+    font-size: 20px;
+}

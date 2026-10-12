@@ -1,10 +1,21 @@
+html {
+    overscroll-behavior-y: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overscroll-behavior-y: none;
+    overflow-x: clip;
+}
+
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
     color: white;
-    background-color: #16be2c;
+    background-color: #041e6a;
 }
 
 body {
@@ -44,7 +55,7 @@ body {
 }
 
 main {
-    background-image: url("images/bg.jpg");
+    background-image: url("images/bg.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -72,7 +83,7 @@ main {
 }
 
 #getstarted {
-    background-color: #16be2c;
+    background-color: #041e6a;
     color: white;
     padding: 15px 35px;
     border: none;
@@ -95,7 +106,7 @@ main {
 }
 
 footer {
-    background-color: #16be2c;
+    background-color: #041e6a;
     color: white;
     padding: 20px;
     text-align: center;
