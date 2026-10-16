@@ -40,6 +40,26 @@
     <p id="cpy">© 2026 StudyFlow. Toate drepturile rezervate.</p>
 
 </footer>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+        const upbuttons = document.querySelector('.upbuttons');
+
+        if (currentUser) {
+            upbuttons.innerHTML = `
+                <span style="color: white; font-size: 18px; font-weight: bold; margin-right: 15px;">
+                    Salut, ${currentUser.username}!
+                </span>
+                <button id="logoutBtn" class="nav-btn" style="background-color: #ff4c4c; color: white;">Logout</button>
+            `;
+
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                sessionStorage.removeItem('currentUser');
+                window.location.reload();
+            });
+        }
+    });
+</script>
 
 </body>
 </html>

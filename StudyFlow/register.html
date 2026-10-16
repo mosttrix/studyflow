@@ -1,25 +1,16 @@
 <!DOCTYPE html> 
-
 <html>
-
 <head>
-    <title>Rigister StudyFlow</title>
+    <title>Register StudyFlow</title>
     <link rel="stylesheet" href="style2.css">
-
 </head>
-
 <header>
     <h1>Create Account</h1>
-
     <a href="index.html">
         <button id="btm">Back To Main</button>
     </a>
 </header>
-
-<br>
-<br>
-<br>
-
+<br><br><br>
 <body>
     <div class="formular">
         <label for="username">Username</label>
@@ -31,19 +22,42 @@
         <label for="password">Parolă</label>
         <input type="password" id="password" name="password">
 
-        <button type="submit" id="regbtn">Register</button>
+        <button type="button" id="regbtn">Register</button>
     </div>
+
+    <script>
+        document.getElementById('regbtn').addEventListener('click', function() {
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!username || !email || !phone || !password) {
+                alert('Te rugăm să completezi toate câmpurile!');
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+
+            if (users.some(u => u.email === email)) {
+                alert('Această adresă de email este deja utilizată!');
+                return;
+            }
+
+            users.push({ username, email, phone, password });
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert('Cont creat cu succes! Acum te poți autentifica.');
+            window.location.href = 'login.html';
+        });
+    </script>
 </body>
-
 <footer>
-
     <h1 id="ctctxt">CONTACT</h1>
     <div class="contact">
         <p>Numar de Telefon : 0763034832</p>
         <p>Email : studyflow@gmail.com</p>
     </div>
     <p id="cpy">© 2026 StudyFlow. Toate drepturile rezervate.</p>
-
 </footer>
-
 </html>
