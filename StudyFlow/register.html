@@ -1,63 +1,159 @@
-<!DOCTYPE html> 
-<html>
-<head>
-    <title>Register StudyFlow</title>
-    <link rel="stylesheet" href="style2.css">
-</head>
-<header>
-    <h1>Create Account</h1>
-    <a href="index.html">
-        <button id="btm">Back To Main</button>
-    </a>
-</header>
-<br><br><br>
-<body>
-    <div class="formular">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email">
-        <label for="phone">Număr de telefon</label>
-        <input type="tel" id="phone" name="phone">
-        <label for="password">Parolă</label>
-        <input type="password" id="password" name="password">
 
-        <button type="button" id="regbtn">Register</button>
-    </div>
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyFlow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1 id="txtlogo">StudyFlow</h1>
+
+        <div class="upbuttons" id="upbuttons">
+            <a href="register.html">
+                <button class="nav-btn">Register</button>
+            </a>
+
+            <a href="login.html">
+                <button class="nav-btn">Login</button>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Pagina pentru utilizatorii nelogați -->
+        <section id="welcome">
+            <h1 id="infotxt">
+                Învață mai inteligent. Organizează-te mai bine.
+                Evoluează în fiecare zi.
+            </h1>
+
+            <button id="getstarted">Get Started</button>
+        </section>
+
+        <!-- Chatul apare numai când utilizatorul este logat -->
+        <section id="chat" hidden>
+            <div class="chat-header">
+                <h2>StudyFlow AI</h2>
+                <p>Asistentul tău personal pentru învățare</p>
+            </div>
+
+            <div id="messages" aria-live="polite">
+                <div class="message ai-message">
+                    Salut! 👋 Cu ce te pot ajuta astăzi?
+                </div>
+            </div>
+
+            <form id="chat-form">
+                <input
+                    type="text"
+                    id="message-input"
+                    placeholder="Scrie un mesaj..."
+                    autocomplete="off"
+                    aria-label="Mesajul tău"
+                    required
+                >
+
+                <button type="submit" id="send-btn">
+                    Trimite
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <h1 id="ctctxt">CONTACT</h1>
+
+        <div class="contact">
+            <p>Număr de telefon: 0763034832</p>
+            <p>Email: studyflow@gmail.com</p>
+        </div>
+
+        <p id="cpy">
+            © 2026 StudyFlow. Toate drepturile rezervate.
+        </p>
+    </footer>
 
     <script>
-        document.getElementById('regbtn').addEventListener('click', function() {
-            const username = document.getElementById('username').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const password = document.getElementById('password').value.trim();
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentUser = JSON.parse(
+                sessionStorage.getItem("currentUser")
+            );
 
-            if (!username || !email || !phone || !password) {
-                alert('Te rugăm să completezi toate câmpurile!');
-                return;
+            const upbuttons = document.getElementById("upbuttons");
+            const welcome = document.getElementById("welcome");
+            const chat = document.getElementById("chat");
+
+            // Dacă utilizatorul este logat, afișăm chatul
+            if (currentUser) {
+                welcome.hidden = true;
+                chat.hidden = false;
+
+                const greeting = document.createElement("span");
+                greeting.className = "user-greeting";
+                greeting.textContent =
+                    "Salut, " + currentUser.username + "!";
+
+                const logoutBtn = document.createElement("button");
+                logoutBtn.id = "logoutBtn";
+                logoutBtn.className = "nav-btn";
+                logoutBtn.textContent = "Logout";
+
+                upbuttons.replaceChildren(greeting, logoutBtn);
+
+                logoutBtn.addEventListener("click", function () {
+                    sessionStorage.removeItem("currentUser");
+                    window.location.reload();
+                });
+
+            } else {
+                welcome.hidden = false;
+                chat.hidden = true;
             }
 
-            let users = JSON.parse(localStorage.getItem('users')) || [];
+            // Butonul Get Started duce utilizatorul la înregistrare
+            document.getElementById("getstarted")
+                .addEventListener("click", function () {
+                    window.location.href = "register.html";
+                });
 
-            if (users.some(u => u.email === email)) {
-                alert('Această adresă de email este deja utilizată!');
-                return;
+            // Trimiterea mesajelor în chat
+            const chatForm = document.getElementById("chat-form");
+            const messageInput = document.getElementById("message-input");
+            const messages = document.getElementById("messages");
+
+            function addMessage(text, className) {
+                const message = document.createElement("div");
+                message.className = "message " + className;
+                message.textContent = text;
+
+                messages.appendChild(message);
+                messages.scrollTop = messages.scrollHeight;
             }
 
-            users.push({ username, email, phone, password });
-            localStorage.setItem('users', JSON.stringify(users));
+            chatForm.addEventListener("submit", function (event) {
+                event.preventDefault();
 
-            alert('Cont creat cu succes! Acum te poți autentifica.');
-            window.location.href = 'login.html';
+                const text = messageInput.value.trim();
+
+                if (!text) return;
+
+                addMessage(text, "user-message");
+                messageInput.value = "";
+                messageInput.focus();
+
+                // Răspuns temporar, până conectăm API-ul AI
+                addMessage(
+                    "Mesajul tău a fost primit! În curând voi putea răspunde folosind AI.",
+                    "ai-message"
+                );
+            });
         });
     </script>
+
 </body>
-<footer>
-    <h1 id="ctctxt">CONTACT</h1>
-    <div class="contact">
-        <p>Numar de Telefon : 0763034832</p>
-        <p>Email : studyflow@gmail.com</p>
-    </div>
-    <p id="cpy">© 2026 StudyFlow. Toate drepturile rezervate.</p>
-</footer>
 </html>

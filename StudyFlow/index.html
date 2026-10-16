@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,44 +23,98 @@
     </header>
 
     <main>
-        <h1 id="infotxt">
-            Învață mai inteligent. Organizează-te mai bine.
-            Evoluează în fiecare zi.
-        </h1>
+        <div id="welcome">
+            <h1 id="infotxt">
+                Învață mai inteligent. Organizează-te mai bine.
+                Evoluează în fiecare zi.
+            </h1>
 
-        <button id="getstarted">Get Started</button>
+            <button id="getstarted">Get Started</button>
+        </div>
+
+        <div id="chat" hidden>
+            <div class="chatheader">
+                <h2>StudyFlow AI</h2>
+                <p>Cu ce te pot ajuta astăzi?</p>
+            </div>
+
+            <div id="messages">
+                <div class="message ai">
+                    Salut! Cu ce te pot ajuta astăzi?
+                </div>
+            </div>
+
+            <form id="chatform">
+                <input type="text" id="message" placeholder="Scrie un mesaj..." required>
+                <button type="submit" id="sendbtn">Trimite</button>
+            </form>
+        </div>
     </main>
 
     <footer>
+        <h1 id="ctctxt">CONTACT</h1>
+        <div class="contact">
+            <p>Numar de Telefon : 0763034832</p>
+            <p>Email : studyflow@gmail.com</p>
+        </div>
+        <p id="cpy">© 2026 StudyFlow. Toate drepturile rezervate.</p>
+    </footer>
 
-    <h1 id="ctctxt">CONTACT</h1>
-    <div class="contact">
-        <p>Numar de Telefon : 0763034832</p>
-        <p>Email : studyflow@gmail.com</p>
-    </div>
-    <p id="cpy">© 2026 StudyFlow. Toate drepturile rezervate.</p>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+            const upbuttons = document.querySelector(".upbuttons");
+            const welcome = document.getElementById("welcome");
+            const chat = document.getElementById("chat");
 
-</footer>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-        const upbuttons = document.querySelector('.upbuttons');
+            if (currentUser) {
+                welcome.hidden = true;
+                chat.hidden = false;
 
-        if (currentUser) {
-            upbuttons.innerHTML = `
-                <span style="color: white; font-size: 18px; font-weight: bold; margin-right: 15px;">
-                    Salut, ${currentUser.username}!
-                </span>
-                <button id="logoutBtn" class="nav-btn" style="background-color: #ff4c4c; color: white;">Logout</button>
-            `;
+                upbuttons.innerHTML = `
+                    <span class="salut">Salut, ${currentUser.username}!</span>
+                    <button id="logoutBtn" class="nav-btn">Logout</button>
+                `;
 
-            document.getElementById('logoutBtn').addEventListener('click', function() {
-                sessionStorage.removeItem('currentUser');
-                window.location.reload();
+                document.getElementById("logoutBtn").addEventListener("click", function() {
+                    sessionStorage.removeItem("currentUser");
+                    window.location.reload();
+                });
+            }
+
+            document.getElementById("getstarted").addEventListener("click", function() {
+                window.location.href = "register.html";
             });
-        }
-    });
-</script>
+
+            const chatform = document.getElementById("chatform");
+            const message = document.getElementById("message");
+            const messages = document.getElementById("messages");
+
+            chatform.addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                const text = message.value.trim();
+
+                if (text === "") {
+                    return;
+                }
+
+                const userMessage = document.createElement("div");
+                userMessage.className = "message user";
+                userMessage.textContent = text;
+                messages.appendChild(userMessage);
+
+                message.value = "";
+
+                const aiMessage = document.createElement("div");
+                aiMessage.className = "message ai";
+                aiMessage.textContent = "Am primit mesajul tău! Aici voi răspunde cu ajutorul AI.";
+                messages.appendChild(aiMessage);
+
+                messages.scrollTop = messages.scrollHeight;
+            });
+        });
+    </script>
 
 </body>
 </html>
